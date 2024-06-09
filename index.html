@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+    background-color: orange;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+.con {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 5px;
+}
+.con header {
+    font-weight: bold;
+    font-size: 70px;
+}
+.con p {
+    font-weight: 400;
+    font-size: 30px;
+    margin-bottom: 100px;
+    
+}
+.con .time-all {
+    display: flex;
+    column-gap: 40px;
+    text-align: center;
+}
+.time-all .tim {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+.tim .number{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.tim .text{
+    font-weight: bold;
+    font-size: 20px;
+}
+    </style>
+    <title>Back To School</title>
+</head>
+<body>
+    <section class="con">
+        <header>قريبا يا جماعة</header>
+        <p>بداية الدراسة</p>
+        <div class="time-all">
+        <div class="tim month">
+            <span class="number"></span>
+            <span class="text">Month</span>
+        </div>
+        <div class="tim days">
+            <span class="number"></span>
+            <span class="text">Day</span>
+        </div>
+        <div class="tim Hour">
+            <span class="number"></span>
+            <span class="text">Hour</span>
+        </div>
+        <div class="tim Min">
+            <span class="number"></span>
+            <span class="text">Minutes</span>
+        </div>
+        <div class="tim sec">
+            <span class="number"></span>
+            <span class="text">second</span>
+        </div>
+        </div>
+    </section>
+    <script>
+        // استرجاع القيم من localStorage إذا كانت متوفرة
+        let monValue = localStorage.getItem('monValue') || 4;
+        let dayValue = localStorage.getItem('dayValue') || 0;
+        let hourValue = localStorage.getItem('hourValue') || 7;
+        let minValue = localStorage.getItem('minValue') || 10;
+        let secValue = localStorage.getItem('secValue') || 12;
+    
+        const mon = document.querySelector('.month .number');
+        const day = document.querySelector('.days .number');
+        const hour = document.querySelector('.Hour .number');
+        const min = document.querySelector('.Min .number');
+        const sece = document.querySelector('.sec .number');
+    
+        const timeFunction = setInterval(() => {
+            secValue--;
+            if (secValue == 0) {
+                minValue--;
+                secValue = 60;
+            }
+            if (dayValue == 0) {
+                monValue--;
+                dayValue = 60;
+            }
+            if (hourValue == 0) {
+                dayValue--;
+                hourValue = 60;
+            }
+            if (minValue == 0) {
+                hourValue--;
+                minValue = 60;
+            }
+            if (monValue == 0) {
+                clearInterval(timeFunction);
+            }
+            // حفظ القيم في localStorage
+            localStorage.setItem('monValue', monValue);
+            localStorage.setItem('dayValue', dayValue);
+            localStorage.setItem('hourValue', hourValue);
+            localStorage.setItem('minValue', minValue);
+            localStorage.setItem('secValue', secValue);
+    
+            sece.textContent = secValue < 10 ? `0${secValue}` : secValue;
+            day.textContent = dayValue < 10 ? `0${dayValue}` : dayValue;
+            hour.textContent = hourValue < 10 ? `0${hourValue}` : hourValue;
+            min.textContent = minValue < 10 ? `0${minValue}` : minValue;
+            mon.textContent = monValue < 10 ? `0${monValue}` : monValue;
+        }, 1000);
+    </script>
+</body>
+</html>
